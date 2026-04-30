@@ -281,7 +281,7 @@ class RandomMapDPPlanner:
                                             delta = max(delta, change)
 
             if delta < tol:
-                print(f"Random planner converged in {iteration} iterations.")
+                print(f"Converged in {iteration} iterations.")
                 break
 
 
@@ -326,7 +326,7 @@ def doorkey_problem_random(env, planner, start_dir=None):
         curr_state, _ = planner.get_next_state_and_cost(curr_state, act)
 
     if (curr_state[0], curr_state[1]) != goal_pos:
-        print("Warning: Reached max rollout steps without hitting random-map goal.")
+        print("Warning: Cannot hit the goal.")
 
     return optim_act_seq
 
@@ -380,14 +380,14 @@ def doorkey_problem(env, info, start_dir=None):
         act = planner.get_action(curr_state)
         
         if act == -1:
-            print("Warning: Goal unreachable from initial state!")
+            print("Warning: Goal unreachable from initial state.")
             break
             
         optim_act_seq.append(act)
         curr_state, _ = planner.get_next_state_and_cost(curr_state, act)
 
     if (curr_state[0], curr_state[1]) != planner.goal_pos:
-        print("Warning: Reached max rollout steps without hitting the goal.")
+        print("Warning: Cannot hit the goal.")
 
     return optim_act_seq
 
@@ -450,7 +450,7 @@ def partB():
         map_base = map_name.replace(".env", "")
 
         for start_dir in range(4):
-            print(f"\nEvaluating: {map_name} (start dir={DIR_LABELS[start_dir]}) ...")
+            print(f"\nEvaluating: {map_name} (start dir={DIR_LABELS[start_dir]})")
 
             env, _ = load_env(env_path)
             env.unwrapped.agent_dir = start_dir
